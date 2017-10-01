@@ -1,5 +1,6 @@
 defmodule Psi.LinearCongruentialGeneratorTest do
   use ExUnit.Case
+  doctest Psi.LinearCongruentialGenerator
 
   describe "instance/3" do
     alias Psi.LinearCongruentialGenerator, as: LCG

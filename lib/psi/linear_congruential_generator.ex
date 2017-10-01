@@ -1,6 +1,12 @@
 defmodule Psi.LinearCongruentialGenerator do
   @moduledoc """
   A Linear Congruential Generator
+
+  ## Example
+      iex> alias Psi.LinearCongruentialGenerator, as: LCG
+      Psi.LinearCongruentialGenerator
+      iex> LCG.stream(seed: 7) |> Psi.PairStream.take(3)
+      [7, 6, 9]
   """
 
   @typedoc """
