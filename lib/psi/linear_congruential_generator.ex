@@ -25,19 +25,21 @@ defmodule Psi.LinearCongruentialGenerator do
     increment:  0
   ]
 
+  @type configuration :: [seed: integer] | [generator: function, seed: integer]
+
   @doc """
   An LCG stream
 
   Build a generator with the LCG structure + `instance/1`.
   """
-  @spec stream([seed: integer] | [generator: function, seed: integer]) :: Psi.PairStream.t
+  @spec stream(configuration) :: Psi.PairStream.t
   def stream(seed: x) when is_integer(x) do
     stream(generator: instance(default()), seed: x)
   end
   def stream(generator: f, seed: x) when is_function(f) and is_integer(x) do
-    [ x | fn ->
+    [x|fn ->
       stream(generator: f, seed: apply(f, [x]))
-    end ]
+    end]
   end
 
   @doc """

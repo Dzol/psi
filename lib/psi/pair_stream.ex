@@ -25,7 +25,7 @@ defmodule Psi.PairStream do
     []
   end
   def take(x, n) when is_integer(n) and n > 0 do
-    [ head(x) | take(tail(x), n - 1) ]
+    [head(x)|take(tail(x), n - 1)]
   end
 
   @spec head(t) :: term
