@@ -74,5 +74,16 @@ defmodule Psi.LinearCongruentialGeneratorTest do
       u = LCG.stream(seed: 7)
       assert Psi.PairStream.take(u, 4) === [7, 6, 9, 0]
     end
+
+    test "bad parameters fail" do
+      x = %LCG{
+        modulus:     0,
+        multiplier: -1,
+        increment:  -1
+      }
+      assert_raise FunctionClauseError, fn ->
+        LCG.instance(x)
+      end
+    end
   end
 end

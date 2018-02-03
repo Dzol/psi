@@ -51,27 +51,13 @@ defmodule Psi.LinearCongruentialGenerator do
   @doc """
   An Linear Congruential Generator with the given parameters
   """
-  @spec instance(t) :: function
-  def instance(%__MODULE__{modulus: m, multiplier: a, increment: c}) do
-    okay!(m, a, c) and instance(m, a, c)
+  @spec instance(t) :: (integer -> integer)
+  def instance(%__MODULE__{modulus: m, multiplier: a, increment: c}) when (m > 0) and (m > a and a >= 0) and (m > c and c >= 0) do
+    & Integer.mod((a * &1) + c, m)
   end
 
   @spec default() :: t
   defp default do
     struct!(__MODULE__, Application.fetch_env!(:psi, :default))
-  end
-
-  @spec okay!(integer, integer, integer) :: true | no_return
-  defp okay!(m, a, c) do
-    true = m > 0
-    true = m > a and a >= 0
-    true = m > c and c >= 0
-  end
-
-  @spec instance(integer, integer, integer) :: function
-  defp instance(m, a, c) do
-    fn (x) ->
-      Integer.mod((a * x) + c, m)
-    end
   end
 end
